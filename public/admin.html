@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — EXO Stadium</title>
+  <meta name="description" content="Secure admin dashboard for crowd heatmaps, signage control, and emergency management.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏟️</text></svg>">
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-orbs">
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+  </div>
+  <div class="noise-overlay"></div>
+
+  <div class="app-container">
+    <nav class="navbar">
+      <a href="/" class="nav-brand">
+        <div class="nav-logo">EX</div>
+        <span class="nav-title">EXO</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/">Home</a></li>
+        <li><a href="/stadium">Stadium Map</a></li>
+        <li><a href="/concessions">Order Food</a></li>
+        <li><a href="/restrooms">Restrooms</a></li>
+      </ul>
+      <div class="nav-status">
+        <span class="status-dot"></span>
+        Live
+      </div>
+    </nav>
+
+    <main class="page-content">
+      <!-- Login Form -->
+      <div class="admin-login glass-card" id="adminLogin">
+        <h2>🔐 Staff Access</h2>
+        <p>Enter your credentials to access the admin dashboard</p>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label class="form-label" for="adminUser">Username</label>
+            <input type="text" class="form-input" id="adminUser" placeholder="Enter username" autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="adminPass">Password</label>
+            <input type="password" class="form-input" id="adminPass" placeholder="Enter password" autocomplete="current-password">
+          </div>
+          <button type="submit" class="login-btn" id="loginBtn">Sign In</button>
+          <div class="login-error" id="loginError">Invalid credentials. Please try again.</div>
+        </form>
+      </div>
+
+      <!-- Dashboard Content (hidden until login) -->
+      <div class="admin-dashboard" id="adminDashboard">
+        <div class="page-header">
+          <h1>📊 Admin Dashboard</h1>
+          <p>Real-time stadium operations overview</p>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="dashboard-grid" id="dashboardStats">
+          <div class="stat-card">
+            <div class="stat-card-value" style="color: var(--accent-cyan);" id="statTotalAttendance">42,156</div>
+            <div class="stat-card-label">Total Attendance</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-value" style="color: var(--accent-green);" id="statActiveOrders">0</div>
+            <div class="stat-card-label">Active Orders</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-value" style="color: var(--accent-pink);" id="statAvgOccupancy">62%</div>
+            <div class="stat-card-label">Avg. Occupancy</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-value" style="color: var(--accent-yellow);" id="statAlerts">0</div>
+            <div class="stat-card-label">Active Alerts</div>
+          </div>
+        </div>
+
+        <!-- Panels -->
+        <div class="admin-panels">
+          <!-- Heatmap -->
+          <div class="admin-panel">
+            <h3>🔥 Crowd Heatmap</h3>
+            <canvas class="heatmap-canvas" id="heatmapCanvas"></canvas>
+          </div>
+
+          <!-- Signage Override -->
+          <div class="admin-panel">
+            <h3>📺 Digital Signage Override</h3>
+            <div class="signage-form">
+              <textarea class="signage-textarea" id="signageMessage" placeholder="Enter broadcast message..."></textarea>
+              <select class="priority-select" id="signagePriority">
+                <option value="info">ℹ️ Info</option>
+                <option value="warning">⚠️ Warning</option>
+                <option value="critical">🚨 Critical</option>
+              </select>
+              <button class="signage-send-btn" id="signageSendBtn">Broadcast Message</button>
+              <button class="emergency-btn" id="emergencyBtn">🚨 ACTIVATE EMERGENCY PROTOCOL</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="admin-panel" style="margin-top: 24px;">
+          <h3>📦 Recent Orders</h3>
+          <table class="orders-table" id="ordersTable">
+            <thead>
+              <tr>
+                <th>Order #</th>
+                <th>Customer</th>
+                <th>Section</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+              <tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 24px;">No orders yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>EXO Stadium Platform &copy; 2026</p>
+    </footer>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

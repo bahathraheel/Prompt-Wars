@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find My Seat — EXO Stadium</title>
+  <meta name="description" content="Interactive 2D overhead stadium map with optimal path tracing to your section.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏟️</text></svg>">
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-orbs">
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+  </div>
+  <div class="noise-overlay"></div>
+
+  <div class="app-container">
+    <nav class="navbar">
+      <a href="/" class="nav-brand">
+        <div class="nav-logo">EX</div>
+        <span class="nav-title">EXO</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/">Home</a></li>
+        <li><a href="/stadium" class="active">Stadium Map</a></li>
+        <li><a href="/concessions">Order Food</a></li>
+        <li><a href="/restrooms">Restrooms</a></li>
+      </ul>
+      <div class="nav-status">
+        <span class="status-dot"></span>
+        Live
+      </div>
+    </nav>
+
+    <main class="page-content">
+      <div class="page-header">
+        <h1>🗺️ Find My Seat</h1>
+        <p>Select your gate and destination section to see the optimal route</p>
+      </div>
+
+      <div class="stadium-container">
+        <!-- Map Canvas -->
+        <div class="map-wrapper">
+          <canvas class="map-canvas" id="stadiumCanvas"></canvas>
+        </div>
+
+        <!-- Info Panel -->
+        <div class="map-info-panel">
+          <!-- Controls -->
+          <div class="info-card">
+            <h3>📍 Your Location</h3>
+            <select class="section-select" id="gateSelect">
+              <option value="">Select your gate...</option>
+            </select>
+          </div>
+
+          <div class="info-card">
+            <h3>🎯 Destination</h3>
+            <select class="section-select" id="sectionSelect">
+              <option value="">Select your section...</option>
+            </select>
+          </div>
+
+          <!-- Path Info (shows after selection) -->
+          <div class="path-info" id="pathInfo">
+            <h4>Route Information</h4>
+            <div class="path-stat">
+              <span class="path-stat-label">Distance</span>
+              <span class="path-stat-value" id="pathDistance">—</span>
+            </div>
+            <div class="path-stat">
+              <span class="path-stat-label">Est. Walk Time</span>
+              <span class="path-stat-value" id="pathTime">—</span>
+            </div>
+            <div class="path-stat">
+              <span class="path-stat-label">Crowd Density</span>
+              <span class="path-stat-value" id="pathCrowd">—</span>
+            </div>
+          </div>
+
+          <!-- Legend -->
+          <div class="info-card">
+            <h3>Legend</h3>
+            <div class="map-legend">
+              <div class="legend-item">
+                <div class="legend-dot sections"></div>
+                Seating Sections
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot food"></div>
+                Concessions
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot restroom"></div>
+                Restrooms
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot gate"></div>
+                Gates
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>EXO Stadium Platform &copy; 2026</p>
+    </footer>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+  <script src="/js/stadium.js"></script>
+</body>
+</html>

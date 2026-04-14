@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Food — EXO Stadium</title>
+  <meta name="description" content="Browse the stadium menu, add items to your cart, and get a QR code for quick pickup.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏟️</text></svg>">
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-orbs">
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+  </div>
+  <div class="noise-overlay"></div>
+
+  <div class="app-container">
+    <nav class="navbar">
+      <a href="/" class="nav-brand">
+        <div class="nav-logo">EX</div>
+        <span class="nav-title">EXO</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/">Home</a></li>
+        <li><a href="/stadium">Stadium Map</a></li>
+        <li><a href="/concessions" class="active">Order Food</a></li>
+        <li><a href="/restrooms">Restrooms</a></li>
+      </ul>
+      <div class="nav-status">
+        <span class="status-dot"></span>
+        Live
+      </div>
+    </nav>
+
+    <main class="page-content">
+      <div class="page-header">
+        <h1>🍔 Concessions</h1>
+        <p>Order ahead and skip the line with your digital QR code</p>
+      </div>
+
+      <div class="concessions-layout">
+        <!-- Menu Section -->
+        <div>
+          <!-- Filters -->
+          <div class="menu-filters" id="menuFilters">
+            <button class="filter-btn active" data-cat="all">All Items</button>
+            <button class="filter-btn" data-cat="mains">🍖 Mains</button>
+            <button class="filter-btn" data-cat="snacks">🍿 Snacks</button>
+            <button class="filter-btn" data-cat="drinks">🥤 Drinks</button>
+          </div>
+
+          <!-- Menu Grid -->
+          <div class="menu-grid" id="menuGrid">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Cart Panel -->
+        <div class="cart-panel glass-card" id="cartPanel">
+          <div class="cart-header">
+            <h3>🛒 Your Cart</h3>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+
+          <div class="cart-items" id="cartItems">
+            <div class="cart-empty" id="cartEmpty">
+              <div class="cart-empty-icon">🛒</div>
+              <p>Your cart is empty.<br>Add items from the menu!</p>
+            </div>
+          </div>
+
+          <div class="cart-divider"></div>
+
+          <div class="customer-section">
+            <label class="form-label">Your Name</label>
+            <input type="text" class="form-input" id="customerName" placeholder="Enter your name...">
+          </div>
+
+          <div class="customer-section">
+            <label class="form-label">Your Section</label>
+            <input type="text" class="form-input" id="customerSection" placeholder="e.g. A1, B2...">
+          </div>
+
+          <div class="cart-total">
+            <span class="cart-total-label">Total</span>
+            <span class="cart-total-value" id="cartTotal">$0.00</span>
+          </div>
+
+          <button class="checkout-btn" id="checkoutBtn" disabled>
+            Place Order
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>EXO Stadium Platform &copy; 2026</p>
+    </footer>
+  </div>
+
+  <!-- Order Confirmation Modal -->
+  <div class="modal-overlay" id="orderModal">
+    <div class="modal">
+      <h2>🎉 Order Confirmed!</h2>
+      <p>Show this QR code at the pickup counter</p>
+      <div class="order-number" id="modalOrderNumber">EXO-XXXXXXX</div>
+      <div class="qr-code" id="qrCode"></div>
+      <p style="font-size: 12px; color: var(--text-muted);">Estimated ready in <strong>10 minutes</strong></p>
+      <button class="modal-close-btn" id="modalCloseBtn">Done</button>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+  <script src="/js/concessions.js"></script>
+</body>
+</html>

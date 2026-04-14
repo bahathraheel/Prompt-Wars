@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXO — Intelligent Stadium Experience</title>
+  <meta name="description" content="EXO transforms your stadium visit with interactive seat navigation, mobile food ordering, and real-time restroom monitoring.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏟️</text></svg>">
+</head>
+<body>
+  <!-- Background Effects -->
+  <div class="bg-grid"></div>
+  <div class="bg-orbs">
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+  </div>
+  <div class="noise-overlay"></div>
+
+  <div class="app-container">
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+      <a href="/" class="nav-brand">
+        <div class="nav-logo">EX</div>
+        <span class="nav-title">EXO</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/stadium">Stadium Map</a></li>
+        <li><a href="/concessions">Order Food</a></li>
+        <li><a href="/restrooms">Restrooms</a></li>
+      </ul>
+      <div class="nav-status">
+        <span class="status-dot"></span>
+        Live
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="page-content">
+      <section class="hero">
+        <div class="hero-badge">Live Event — Gate Opens 6:00 PM</div>
+
+        <h1>
+          Your Stadium<br>
+          <span class="gradient-text">Experience, Elevated</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Navigate to your seat, order food from your phone, and find the shortest restroom line — all from one intelligent platform.
+        </p>
+
+        <div class="hero-actions">
+          <!-- Find My Seat -->
+          <a href="/stadium" class="action-card" id="action-seat">
+            <div class="action-icon seat">🗺️</div>
+            <h3>Find My Seat</h3>
+            <p>Interactive map with optimal path tracing to your section</p>
+          </a>
+
+          <!-- Order Food -->
+          <a href="/concessions" class="action-card" id="action-food">
+            <div class="action-icon food">🍔</div>
+            <h3>Order Food</h3>
+            <p>Browse the menu, checkout, and get a QR code for pickup</p>
+          </a>
+
+          <!-- Restroom Radar -->
+          <a href="/restrooms" class="action-card" id="action-rest">
+            <div class="action-icon rest">🚻</div>
+            <h3>Restroom Radar</h3>
+            <p>Real-time wait times and occupancy for every restroom</p>
+          </a>
+        </div>
+      </section>
+
+      <!-- Live Stats Banner -->
+      <section class="glass-card fade-up" style="max-width: 800px; margin: 0 auto 60px; padding: 24px 32px;">
+        <div style="display: flex; justify-content: space-around; text-align: center; flex-wrap: wrap; gap: 16px;">
+          <div>
+            <div style="font-family: var(--font-primary); font-size: 32px; font-weight: 800; color: var(--accent-cyan);" id="stat-attendance">42,156</div>
+            <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Attendance</div>
+          </div>
+          <div>
+            <div style="font-family: var(--font-primary); font-size: 32px; font-weight: 800; color: var(--accent-green);" id="stat-orders">1,284</div>
+            <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Orders Today</div>
+          </div>
+          <div>
+            <div style="font-family: var(--font-primary); font-size: 32px; font-weight: 800; color: var(--accent-pink);" id="stat-avg-wait">4 min</div>
+            <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Avg. Wait</div>
+          </div>
+          <div>
+            <div style="font-family: var(--font-primary); font-size: 32px; font-weight: 800; color: var(--accent-primary);" id="stat-sections">14</div>
+            <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Active Sections</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>EXO Stadium Platform &copy; 2026 &mdash; Built for the future of live events</p>
+    </footer>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
