@@ -7,13 +7,29 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
+const helmet = require('helmet');
+const cors = require('cors');
+const rateLimit = require('express-rate-limit');
+const compression = require('compression');
+const { Logging } = require('@google-cloud/logging');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
 // Middleware
+app.use(helmet({ contentSecurityPolicy: false })); // Basic security headers, CSP disabled for inline scripts
+app.use(cors()); // Cross-Origin Resource Sharing
+app.use(compression()); // Gzip compression
+app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 200 })); // Rate limiting
+
+// Initialize Google Cloud Logging
+const logging = new Logging();
+// Just a placeholder to show it's initialized
+console.log('Google Cloud Logging initialized');
+
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1d' })); // Basic caching
+
 
 // ─── In-Memory Data Store ────────────────────────────────────────────
 
@@ -251,9 +267,13 @@ app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'adm
 
 // ─── Start Server ────────────────────────────────────────────────────
 
-app.listen(PORT, () => {
-  console.log(`\n  ╔══════════════════════════════════════╗`);
-  console.log(`  ║   EXO Stadium Platform — Live 🏟️     ║`);
-  console.log(`  ║   http://localhost:${PORT}              ║`);
-  console.log(`  ╚══════════════════════════════════════╝\n`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n  ╔══════════════════════════════════════╗`);
+    console.log(`  ║   EXO Stadium Platform — Live 🏟️     ║`);
+    console.log(`  ║   http://localhost:${PORT}              ║`);
+    console.log(`  ╚══════════════════════════════════════╝\n`);
+  });
+}
+
+module.exports = app;

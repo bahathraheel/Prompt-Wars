@@ -1589,3 +1589,22 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ─── Accessibility Improvements ────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: white;
+  padding: 8px;
+  z-index: 1000;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 0;
+}
+*:focus-visible {
+  outline: 3px solid var(--accent-cyan) !important;
+  outline-offset: 2px;
+}
