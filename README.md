@@ -1,7 +1,7 @@
 # 🏟️ EXO — Intelligent Stadium Experience Platform
 
 A full-stack Node.js/Express application that transforms the stadium experience with interactive seat navigation, mobile food ordering, real-time restroom monitoring, and an admin operations dashboard.
-
+#LIVE URL:https://exo-stadium-355837571867.us-central1.run.app
 ## ✨ Features
 
 ### 🗺️ Find My Seat — Interactive Stadium Map
