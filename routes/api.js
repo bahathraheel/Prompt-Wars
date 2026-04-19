@@ -160,14 +160,69 @@ router.get('/restrooms', (req, res) => {
   res.json(restrooms);
 });
 
-// AI Insights (Gemini-powered simulation)
-router.get('/ai-insights', (req, res) => {
+// AI Insights (Gemini-powered via @google/genai)
+let genai;
+try {
+  const { GoogleGenAI } = require('@google/genai');
+  if (process.env.GEMINI_API_KEY) {
+    genai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+  }
+} catch (e) {
+  logger.warn('Google GenAI SDK not installed or configured', e);
+}
+
+router.get('/ai-insights', async (req, res) => {
+  if (genai) {
+    try {
+      const prompt = "You are a smart stadium AI. Give 3 short, priority-ranked (high, medium, low) insights about crowd, food, or restrooms in a stadium. Return as JSON array with properties: type (crowd/food/restroom), message, priority.";
+      const response = await genai.models.generateContent({
+          model: 'gemini-2.5-flash',
+          contents: prompt,
+      });
+      let parsed = [];
+      try {
+          const text = response.text.replace(/```json/g, '').replace(/```/g, '');
+          parsed = JSON.parse(text);
+      } catch (e) {
+          logger.warn('Failed to parse AI insights JSON', e);
+      }
+      if (parsed.length > 0) {
+        return res.json({ system: 'Gemini 2.5', insights: parsed, timestamp: new Date().toISOString() });
+      }
+    } catch(e) {
+      logger.error('Gemini Insights Error', e);
+    }
+  }
+
+  // Fallback
   const insights = [
     { type: 'crowd', message: "AI predicts peak crowd at Gate B in 15 minutes. Suggest Gate A for faster entry.", priority: 'high' },
     { type: 'food', message: "Chicken Tenders are trending in Section A3. Use mobile order to skip the 12-minute queue.", priority: 'medium' },
     { type: 'restroom', message: "North Restroom wait time is currently 2 mins. Predicted to increase after halftime.", priority: 'low' }
   ];
-  res.json({ system: 'Gemini Pro', insights, timestamp: new Date().toISOString() });
+  res.json({ system: 'Gemini Pro (Simulated Fallback)', insights, timestamp: new Date().toISOString() });
+});
+
+router.post('/chat', async (req, res) => {
+  const { message } = req.body;
+  if (!message) return res.status(400).json({ error: 'Message required' });
+
+  if (genai) {
+    try {
+      const response = await genai.models.generateContent({
+          model: 'gemini-2.5-flash',
+          contents: `You are EXO, the intelligent stadium AI assistant. Answer this guest query helpfully and concisely: ${message}`,
+      });
+      return res.json({ reply: response.text });
+    } catch(e) {
+      logger.error('Gemini Chat Error', e);
+      return res.json({ reply: "I am experiencing network interference at the stadium, please try again." });
+    }
+  }
+
+  // Fallback
+  logger.info('Simulated AI Chat', message);
+  res.json({ reply: `(Simulated AI): You asked about "${message}". I recommend checking out our interactive stadium map or ordering from concessions via the app!` });
 });
 
 // Admin Login

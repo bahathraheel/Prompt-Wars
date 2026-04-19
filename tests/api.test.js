@@ -130,4 +130,21 @@ describe('EXO API Integration Tests', () => {
       expect(res.statusCode).toEqual(401);
     });
   });
+
+  describe('AI Chat Endpoints', () => {
+    it('POST /api/chat should return a reply', async () => {
+      const res = await request(app)
+        .post('/api/chat')
+        .send({ message: 'Where are the restrooms?' });
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toHaveProperty('reply');
+    });
+
+    it('POST /api/chat without message should fail', async () => {
+      const res = await request(app)
+        .post('/api/chat')
+        .send({});
+      expect(res.statusCode).toEqual(400);
+    });
+  });
 });

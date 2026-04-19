@@ -1,8 +1,20 @@
 # 🏟️ EXO — Intelligent Stadium Experience Platform
 
-A full-stack Node.js/Express application that transforms the stadium experience with interactive seat navigation, mobile food ordering, real-time restroom monitoring, and an admin operations dashboard.
-#LIVE URL:https://exo-stadium-355837571867.us-central1.run.app
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-success)
+![Express](https://img.shields.io/badge/express-4.18.2-lightgrey)
+![GCP](https://img.shields.io/badge/Google_Cloud-Run-4285F4?logo=googlecloud)
+![Gemini](https://img.shields.io/badge/Gemini-2.5_Flash-orange)
+
+**LIVE URL:** https://exo-stadium-355837571867.us-central1.run.app
+
+A scalable, multi-tenant full-stack Node.js/Express application that transforms the stadium experience with interactive seat navigation, mobile food ordering, real-time restroom monitoring, **and an intelligent AI Concierge powered by Google Gemini SDK**.
 ## ✨ Features
+
+### 🤖 EXO AI Assistant & Real-time Insights
+- Fully integrated conversational assistant using **@google/genai** (Gemini 2.5 Flash).
+- Generates priority-ranked crowd and food insights in real-time.
+- Glassmorphic animated chat widget.
 
 ### 🗺️ Find My Seat — Interactive Stadium Map
 - 2D overhead Canvas-rendered stadium with 14 sections, 4 gates, 3 concession stands, and 4 restrooms

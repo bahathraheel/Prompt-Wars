@@ -174,3 +174,70 @@ function createParticles() {
 
   animate();
 }
+
+  // ─── AI Concierge Chat ────────────────────────────────────────
+  const chatFab = document.getElementById('chatFab');
+  const chatWidget = document.getElementById('chatWidget');
+  const chatClose = document.getElementById('chatClose');
+  const chatInput = document.getElementById('chatInput');
+  const chatSend = document.getElementById('chatSend');
+  const chatMessages = document.getElementById('chatMessages');
+
+  if (chatFab && chatWidget) {
+    chatFab.addEventListener('click', () => {
+      chatWidget.setAttribute('aria-hidden', 'false');
+      chatInput.focus();
+    });
+
+    chatClose.addEventListener('click', () => {
+      chatWidget.setAttribute('aria-hidden', 'true');
+    });
+
+    const addMessage = (text, sender) => {
+      const msg = document.createElement('div');
+      msg.className = `message ${sender}`;
+      msg.textContent = text;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+
+    const handleSend = async () => {
+      const text = chatInput.value.trim();
+      if (!text) return;
+      
+      addMessage(text, 'user');
+      chatInput.value = '';
+      chatInput.disabled = true;
+
+      // add typing indicator
+      const typingId = 'typing-' + Date.now();
+      const typingIndicator = document.createElement('div');
+      typingIndicator.id = typingId;
+      typingIndicator.className = 'message assistant';
+      typingIndicator.textContent = '...';
+      chatMessages.appendChild(typingIndicator);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text })
+        });
+        const data = await response.json();
+        document.getElementById(typingId).remove();
+        addMessage(data.reply, 'assistant');
+      } catch (err) {
+        document.getElementById(typingId).remove();
+        addMessage('System offline. Please try again later.', 'assistant');
+      } finally {
+        chatInput.disabled = false;
+        chatInput.focus();
+      }
+    };
+
+    chatSend.addEventListener('click', handleSend);
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleSend();
+    });
+  }
